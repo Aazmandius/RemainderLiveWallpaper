@@ -1,16 +1,20 @@
 package com.example.ReminderLiveWallpaperExample;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
+import android.provider.Settings;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import com.example.ReminderLiveWallpaperExample.GlowService;
 
 /**
  * Created by User on 23.11.2014.
@@ -23,11 +27,13 @@ public class GlowDrawable extends ShapeDrawable {
     private float mOffsetX = 40.0f;
     private float mOffsetY = 80.0f;
     private float mRadius = 0.0f;
-    private float mSpeedX = 5.0f;
+    private float mSpeedX = 15.0f;
     private float mSpeedY = 10.0f;
 
     private int mColorFG = Color.rgb(0xFF, 0xFF, 0x00); // yellow
     private int mColorBG = Color.rgb(0xFF, 0x66, 0x33); // orange
+
+    public String mesText = "";
 
     public GlowDrawable() {
         this(new RectShape());
@@ -78,7 +84,6 @@ public class GlowDrawable extends ShapeDrawable {
     public void draw(Canvas c) {
         float width = c.getWidth();
         float height = c.getHeight();
-        String mesText = "Keep flying...\nKeep flying...";
 
         Paint tp = new Paint(Paint.ANTI_ALIAS_FLAG);
         tp.setStyle(Paint.Style.STROKE);

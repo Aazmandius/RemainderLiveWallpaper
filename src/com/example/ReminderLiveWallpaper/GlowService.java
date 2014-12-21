@@ -1,7 +1,9 @@
 package com.example.ReminderLiveWallpaperExample;
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
@@ -10,13 +12,17 @@ import android.view.SurfaceHolder;
  */
 public class GlowService extends WallpaperService {
 
+    public GlowEngine eng;
+
     @Override
     public Engine onCreateEngine() {
-        return new GlowEngine();
+        eng = new GlowEngine();
+        setMessageText();
+        return eng;
     }
 
     private class GlowEngine extends Engine {
-        private GlowDrawable mDrawable;
+        private com.example.ReminderLiveWallpaperExample.GlowDrawable mDrawable;
         private boolean mVisible = false;
         private final Handler mHandler = new Handler();
         private final Runnable mUpdateDisplay = new Runnable() {
@@ -77,5 +83,10 @@ public class GlowService extends WallpaperService {
             mVisible = false;
             mHandler.removeCallbacks(mUpdateDisplay);
         }
+    }
+
+    public void setMessageText() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        eng.mDrawable.mesText = prefs.getString("pref_message", "Keep flying...");
     }
 }

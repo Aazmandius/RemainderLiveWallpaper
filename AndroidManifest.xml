@@ -7,7 +7,7 @@
     <uses-feature android:name="android.software.live_wallpaper" />
 
     <uses-sdk
-            android:minSdkVersion="8"
+            android:minSdkVersion="11"
             android:targetSdkVersion="15" />
 
     <application
@@ -24,5 +24,8 @@
                     android:name="android.service.wallpaper"
                     android:resource="@xml/wallpaper" />
         </service>
+        <activity
+                android:name="com.example.ReminderLiveWallpaper.SettingsActivity"
+                android:exported="true" />
     </application>
 </manifest>
